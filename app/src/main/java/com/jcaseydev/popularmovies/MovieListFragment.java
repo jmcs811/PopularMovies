@@ -112,7 +112,6 @@ public class MovieListFragment extends Fragment {
                 Double voteAvg = movieObject.getDouble(VOTE_AVERAGE);
                 int movieId = movieObject.getInt(MOVIE_ID);
 
-                Log.d("MOVIEID", Integer.toString(movieId));
                 movies.add(new Movie(title, poster, overview, releasedate, voteAvg, movieId));
             }
 
