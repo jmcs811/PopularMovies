@@ -50,12 +50,14 @@ public class MovieListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        updateMovies();
-
     }
 
     private void updateMovies() {
+        //clear out both lists
         movieArrayList.clear();
+        listOfMoviePosters.clear();
+
+        //create a new async task and execute
         FetchMovieData fmd = new FetchMovieData();
         fmd.execute();
     }
@@ -63,6 +65,7 @@ public class MovieListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.movie_list_fragment, container, false);
+
         imageAdapter = new ImageAdapter(getActivity(), listOfMoviePosters);
 
         GridView mGridView = (GridView) rootview.findViewById(R.id.movie_list_grid_view);
@@ -78,9 +81,13 @@ public class MovieListFragment extends Fragment {
             }
         });
 
-
-
         return rootview;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateMovies();
     }
 
     public class FetchMovieData extends AsyncTask<Void, Void, List<Movie>> {
@@ -96,15 +103,24 @@ public class MovieListFragment extends Fragment {
             final String VOTE_AVERAGE = "vote_average";
             final String MOVIE_ID = "id";
 
+            //store the json in a json object
             JSONObject jsonObject = new JSONObject(json);
+
+            //get the actual movie results
             JSONArray jsonArray = jsonObject.getJSONArray(ARRAY_OF_MOVIES);
 
+            //get the length of the array for looping
             int limit = jsonArray.length();
+
+            //creat a list of movies
             List<Movie> movies = new ArrayList<>();
 
+            //loop through all of the movies in the array
             for(int i = 0; i < limit; i++){
+                //get the current movie object
                 JSONObject movieObject = jsonArray.getJSONObject(i);
 
+                //get the various details about the movie
                 String title = movieObject.getString(TITLE);
                 String poster = "http://image.tmdb.org/t/p/w342/" + movieObject.getString(POSTER_PATH);
                 String overview = movieObject.getString(OVERVIEW);
@@ -112,6 +128,7 @@ public class MovieListFragment extends Fragment {
                 Double voteAvg = movieObject.getDouble(VOTE_AVERAGE);
                 int movieId = movieObject.getInt(MOVIE_ID);
 
+                //add the movie object to the movie list
                 movies.add(new Movie(title, poster, overview, releasedate, voteAvg, movieId));
             }
 
@@ -196,7 +213,7 @@ public class MovieListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-
+        //simple way to toggle the sort order
         if(id == R.id.sort_action) {
             if (toggle == 0) {
                 BASE_URL = "http://api.themoviedb.org/3/movie/top_rated";

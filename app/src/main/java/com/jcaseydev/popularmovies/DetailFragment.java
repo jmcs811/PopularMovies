@@ -15,17 +15,25 @@ import com.squareup.picasso.Picasso;
 import java.text.DecimalFormat;
 
 public class DetailFragment extends Fragment{
-
     public DetailFragment(){}
     Movie movie;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.detail_fragment, container, false);
 
+        //get intent
         Intent intent = getActivity().getIntent();
+
+        //key for the intent extra
         String MOVIE_INFO = "movie_info";
+
+        //test if intent is null and if it has the correct extra
         if(intent != null && intent.hasExtra(MOVIE_INFO)){
+            //fill movie with the details of the clicked item
             movie = intent.getParcelableExtra(MOVIE_INFO);
+
+            //update view with all of the details
             updateView(rootView);
         }
 
@@ -42,10 +50,6 @@ public class DetailFragment extends Fragment{
         overview.setText(movie.getMovieOverview());
         releaseDate.setText(movie.getMovieReleaseDate());
         Picasso.with(getActivity()).load(movie.getMoviePoster()).into(moviePoster);
-
-
-        String test = Double.toString(movie.getMovieVoteAverage());
-        Log.d("TEST", test);
-        movieVoteAvg.setText(test);
+        movieVoteAvg.setText(Double.toString(movie.getMovieVoteAverage()));
     }
 }

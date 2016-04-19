@@ -16,6 +16,7 @@ public class ImageAdapter extends BaseAdapter{
     ArrayList<String> posterPath;
     Context mContext;
 
+    //constructor
     public ImageAdapter(Context context,ArrayList<String> posterPath){
         this.mContext = context;
         this.posterPath = posterPath;

@@ -15,6 +15,7 @@ public class Movie implements Parcelable{
     private double movieVoteAverage;
     private int movieId;
 
+    //constructor
     public Movie(String title,String poster, String overview, String releasedate, double movieVoteAverage, int movieId) {
         this.movieTitle = title;
         this.moviePoster = poster;
@@ -24,6 +25,7 @@ public class Movie implements Parcelable{
         this.movieId = movieId;
     }
 
+    //getters for all of the required information
     public String getMovieTitle() {
         return movieTitle;
     }
