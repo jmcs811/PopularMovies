@@ -3,7 +3,6 @@ package com.jcaseydev.popularmovies;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.text.DecimalFormat;
 
 public class DetailFragment extends Fragment{
     public DetailFragment(){}
@@ -40,12 +38,15 @@ public class DetailFragment extends Fragment{
         return rootView;
     }
     private void updateView(View view){
+        //set up the views
         TextView title = (TextView) view.findViewById(R.id.movieTitle);
         TextView overview = (TextView)view.findViewById(R.id.movieOverview);
         TextView releaseDate = (TextView)view.findViewById(R.id.movieReleaseDate);
         ImageView moviePoster = (ImageView)view.findViewById(R.id.moviePoster);
         TextView movieVoteAvg = (TextView)view.findViewById(R.id.movieVote);
 
+
+        //set the text on the views
         title.setText(movie.getMovieTitle());
         overview.setText(movie.getMovieOverview());
         releaseDate.setText(movie.getMovieReleaseDate());

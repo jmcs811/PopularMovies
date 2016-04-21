@@ -2,13 +2,10 @@ package com.jcaseydev.popularmovies;
 
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -74,10 +70,12 @@ public class MovieListFragment extends Fragment {
         mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Movie details = movieArrayList.get(position);
-                Intent intent = new Intent(getActivity(), DetailActivity.class)
-                        .putExtra(MOVIE_KEY, details);
-                startActivity(intent);
+
+                    Movie details = movieArrayList.get(position);
+                    Intent intent = new Intent(getActivity(), DetailActivity.class)
+                            .putExtra(MOVIE_KEY, details);
+                    startActivity(intent);
+
             }
         });
 
@@ -99,7 +97,7 @@ public class MovieListFragment extends Fragment {
             final String TITLE = "title";
             final String POSTER_PATH = "poster_path";
             final String OVERVIEW = "overview";
-            final String RELEASEDATE = "release_date";
+            final String RELEASE_DATE = "release_date";
             final String VOTE_AVERAGE = "vote_average";
             final String MOVIE_ID = "id";
 
@@ -124,7 +122,7 @@ public class MovieListFragment extends Fragment {
                 String title = movieObject.getString(TITLE);
                 String poster = "http://image.tmdb.org/t/p/w342/" + movieObject.getString(POSTER_PATH);
                 String overview = movieObject.getString(OVERVIEW);
-                String releasedate = movieObject.getString(RELEASEDATE);
+                String releasedate = movieObject.getString(RELEASE_DATE);
                 Double voteAvg = movieObject.getDouble(VOTE_AVERAGE);
                 int movieId = movieObject.getInt(MOVIE_ID);
 
