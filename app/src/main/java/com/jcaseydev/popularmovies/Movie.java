@@ -62,7 +62,6 @@ public class Movie implements Parcelable{
     public static final Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel in) {
-            Log.d("create from parcel", "Created from Parcel");
             return new Movie(in);
         }
 
