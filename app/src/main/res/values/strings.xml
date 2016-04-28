@@ -5,4 +5,5 @@
     <string name="movie_poster">Movie Poster</string>
     <string name="trailer_button">Play Trailer</string>
     <string name="action_favorite">Favorite Movies</string>
+    <string name="add_to_action_favorite">Add to Favorites</string>
 </resources>

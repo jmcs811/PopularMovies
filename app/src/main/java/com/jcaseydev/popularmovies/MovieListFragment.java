@@ -39,6 +39,7 @@ public class MovieListFragment extends Fragment {
     private ImageAdapter imageAdapter;
     private String BASE_URL = "http://api.themoviedb.org/3/movie/now_playing";
     int toggle = 0;
+    private static final String KEY_INDEX = "index";
 
     public MovieListFragment(){
     }
@@ -47,6 +48,10 @@ public class MovieListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        if (savedInstanceState != null){
+            BASE_URL = savedInstanceState.getString(KEY_INDEX);
+        }
     }
 
     @Override
@@ -88,6 +93,12 @@ public class MovieListFragment extends Fragment {
         FetchMovieData fmd = new FetchMovieData();
         fmd.execute(BASE_URL);
         Toast.makeText(getContext(), "UpdateMoviesCalled", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_INDEX, BASE_URL);
     }
 
     public class FetchMovieData extends AsyncTaskCompleteListener {

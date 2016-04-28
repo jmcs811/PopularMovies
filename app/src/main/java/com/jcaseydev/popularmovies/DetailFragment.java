@@ -2,12 +2,17 @@ package com.jcaseydev.popularmovies;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -15,6 +20,12 @@ import com.squareup.picasso.Picasso;
 public class DetailFragment extends Fragment{
     public DetailFragment(){}
     Movie movie;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +48,7 @@ public class DetailFragment extends Fragment{
 
         return rootView;
     }
+
     private void updateView(View view){
         //set up the views
         TextView title = (TextView) view.findViewById(R.id.movieTitle);
@@ -52,5 +64,22 @@ public class DetailFragment extends Fragment{
         releaseDate.setText(movie.getMovieReleaseDate());
         Picasso.with(getActivity()).load(movie.getMoviePoster()).into(moviePoster);
         movieVoteAvg.setText(Double.toString(movie.getMovieVoteAverage()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.movie_detail_fragment_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+                if (id == R.id.add_to_fav_action){
+                    //TODO:add to favorites
+                }
+
+        return super.onOptionsItemSelected(item);
     }
 }
