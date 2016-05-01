@@ -76,6 +76,8 @@ public class AsyncTaskCompleteListener extends AsyncTask<String, Void, List<Movi
                     .appendQueryParameter(QUERY_API, BuildConfig.TMDB_API_KEY)
                     .build();
 
+
+
             //Using OkHttp to make network request
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()

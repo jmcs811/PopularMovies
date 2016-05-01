@@ -136,6 +136,11 @@ public class MovieListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if (id == R.id.settings_action){
+            Intent intent = new Intent(getContext(), SettingsActivity.class);
+            startActivity(intent);
+        }
+
         //simple way to toggle the sort order
         if(id == R.id.sort_action) {
             if (toggle == 0) {
@@ -151,6 +156,7 @@ public class MovieListFragment extends Fragment {
                 updateMovies();
                 toggle = 0;
             }
+
         }
             return super.onOptionsItemSelected(item);
 
