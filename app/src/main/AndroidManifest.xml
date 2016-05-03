@@ -18,8 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".DetailActivity"
+            android:label="@string/movie_details_title"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/settings_title"/>
     </application>
 
 </manifest>

@@ -2,10 +2,14 @@ package com.jcaseydev.popularmovies;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,11 +41,11 @@ public class MovieListFragment extends Fragment {
     private ArrayList<String> listOfMoviePosters = new ArrayList<>();
     private String MOVIE_KEY = "movie_info";
     private ImageAdapter imageAdapter;
-    private String BASE_URL = "http://api.themoviedb.org/3/movie/now_playing";
+    private String BASE_URL;
     int toggle = 0;
     private static final String KEY_INDEX = "index";
 
-    public MovieListFragment(){
+    public MovieListFragment() {
     }
 
     @Override
@@ -49,7 +53,7 @@ public class MovieListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        if (savedInstanceState != null){
+        if (savedInstanceState != null) {
             BASE_URL = savedInstanceState.getString(KEY_INDEX);
         }
     }
@@ -67,10 +71,10 @@ public class MovieListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    Movie details = movieArrayList.get(position);
-                    Intent intent = new Intent(getActivity(), DetailActivity.class)
-                            .putExtra(MOVIE_KEY, details);
-                    startActivity(intent);
+                Movie details = movieArrayList.get(position);
+                Intent intent = new Intent(getActivity(), DetailActivity.class)
+                        .putExtra(MOVIE_KEY, details);
+                startActivity(intent);
 
             }
         });
@@ -81,18 +85,25 @@ public class MovieListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        updateMovies();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (prefs.getBoolean("pref_sort", true)) {
+            BASE_URL = "http://api.themoviedb.org/3/movie/now_playing";
+            updateMovies(BASE_URL);
+        } else {
+            BASE_URL = "http://api.themoviedb.org/3/movie/top_rated";
+            updateMovies(BASE_URL);
+        }
     }
 
-    private void updateMovies() {
+    private void updateMovies(String url) {
         //clear out both lists
         movieArrayList.clear();
         listOfMoviePosters.clear();
 
         //create a new async task and execute
         FetchMovieData fmd = new FetchMovieData();
-        fmd.execute(BASE_URL);
-        Toast.makeText(getContext(), "UpdateMoviesCalled", Toast.LENGTH_SHORT).show();
+        fmd.execute(url);
+        Toast.makeText(getContext(), "UpdateMoviesCalled" + url, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -105,7 +116,7 @@ public class MovieListFragment extends Fragment {
 
         @Override
         protected void onPostExecute(List<Movie> result) {
-            if (result != null){
+            if (result != null) {
                 //add all of the movie objects that have be gathered
                 //into the movieArrayList
                 movieArrayList.addAll(result);
@@ -117,10 +128,11 @@ public class MovieListFragment extends Fragment {
 
             }
         }
-        public void updatePoster(){
+
+        public void updatePoster() {
             //for every movie in movieArraylist add to
             //listOfMoviePosters
-            for (Movie movie : movieArrayList){
+            for (Movie movie : movieArrayList) {
                 listOfMoviePosters.add(movie.getMoviePoster());
             }
         }
@@ -136,13 +148,13 @@ public class MovieListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.settings_action){
+        if (id == R.id.settings_action) {
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
         }
 
         //simple way to toggle the sort order
-        if(id == R.id.sort_action) {
+      /*  if(id == R.id.sort_action) {
             if (toggle == 0) {
                 BASE_URL = "http://api.themoviedb.org/3/movie/top_rated";
                 movieArrayList.clear();
@@ -157,8 +169,8 @@ public class MovieListFragment extends Fragment {
                 toggle = 0;
             }
 
-        }
-            return super.onOptionsItemSelected(item);
+        }*/
+        return super.onOptionsItemSelected(item);
 
     }
 }
