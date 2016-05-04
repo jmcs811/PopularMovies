@@ -152,24 +152,6 @@ public class MovieListFragment extends Fragment {
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
         }
-
-        //simple way to toggle the sort order
-      /*  if(id == R.id.sort_action) {
-            if (toggle == 0) {
-                BASE_URL = "http://api.themoviedb.org/3/movie/top_rated";
-                movieArrayList.clear();
-                listOfMoviePosters.clear();
-                updateMovies();
-                toggle = 1;
-            } else if(toggle == 1){
-                BASE_URL = "http://api.themoviedb.org/3/movie/now_playing";
-                movieArrayList.clear();
-                listOfMoviePosters.clear();
-                updateMovies();
-                toggle = 0;
-            }
-
-        }*/
         return super.onOptionsItemSelected(item);
 
     }

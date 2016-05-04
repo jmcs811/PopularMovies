@@ -9,4 +9,5 @@
     <string name="action_sort_summary">Change sort order to now playing</string>
     <string name="movie_details_title">Movie Details</string>
     <string name="settings_title">Settings</string>
+    <string name="trailer_botton">Play Movie trailer</string>
 </resources>

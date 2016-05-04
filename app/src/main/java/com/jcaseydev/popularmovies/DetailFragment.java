@@ -1,6 +1,7 @@
 package com.jcaseydev.popularmovies;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import com.squareup.picasso.Picasso;
 
 
 public class DetailFragment extends Fragment{
+
     public DetailFragment(){}
     Movie movie;
 
@@ -36,13 +39,21 @@ public class DetailFragment extends Fragment{
         //key for the intent extra
         String MOVIE_INFO = "movie_info";
 
-        //test if intent is null and if it has the correct extra
+        //test if intent is not null and if it has the correct extra
         if(intent != null && intent.hasExtra(MOVIE_INFO)){
             //fill movie with the details of the clicked item
             movie = intent.getParcelableExtra(MOVIE_INFO);
 
             //update view with all of the details
             updateView(rootView);
+
+            Button trailerButton = (Button) rootView.findViewById(R.id.trailer_button);
+            trailerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
 
         return rootView;
@@ -81,4 +92,17 @@ public class DetailFragment extends Fragment{
 
         return super.onOptionsItemSelected(item);
     }
+
+    public class FetchMovieTrailers extends AsyncTask<Void, Void, Void> {
+
+        private void getMovieUrl(){
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
 }
+

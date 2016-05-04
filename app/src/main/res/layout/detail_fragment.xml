@@ -8,8 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/moviePoster"
         android:contentDescription="@string/movie_poster"
-        android:clickable="false"
-        android:onClick="playTrailer"/>
+        android:clickable="false"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,6 +29,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/movieOverview" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:text="@string/trailer_botton"
+        android:id="@+id/trailer_button"/>
 
 
 </LinearLayout>
