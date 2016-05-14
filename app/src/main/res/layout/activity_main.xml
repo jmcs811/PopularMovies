@@ -5,5 +5,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/detail_container"
-    tools:context="com.jcaseydev.popularmovies.MainActivity">
+    tools:context=".UI.MainActivity">
 </FrameLayout>

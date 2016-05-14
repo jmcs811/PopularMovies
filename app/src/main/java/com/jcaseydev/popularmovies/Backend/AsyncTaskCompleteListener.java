@@ -1,7 +1,9 @@
-package com.jcaseydev.popularmovies;
+package com.jcaseydev.popularmovies.Backend;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+
+import com.jcaseydev.popularmovies.BuildConfig;
 
 import org.json.JSONArray;
 import org.json.JSONException;

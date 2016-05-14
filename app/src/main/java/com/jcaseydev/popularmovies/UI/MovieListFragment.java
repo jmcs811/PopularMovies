@@ -1,12 +1,9 @@
-package com.jcaseydev.popularmovies;
+package com.jcaseydev.popularmovies.UI;
 
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,17 +17,14 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.jcaseydev.popularmovies.Backend.AsyncTaskCompleteListener;
+import com.jcaseydev.popularmovies.Backend.ImageAdapter;
+import com.jcaseydev.popularmovies.Backend.Movie;
+import com.jcaseydev.popularmovies.R;
+import com.jcaseydev.popularmovies.SettingsActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by justinsMO on 2/24/2016.
@@ -42,7 +36,6 @@ public class MovieListFragment extends Fragment {
     private String MOVIE_KEY = "movie_info";
     private ImageAdapter imageAdapter;
     private String BASE_URL;
-    int toggle = 0;
     private static final String KEY_INDEX = "index";
 
     public MovieListFragment() {
@@ -103,7 +96,8 @@ public class MovieListFragment extends Fragment {
         //create a new async task and execute
         FetchMovieData fmd = new FetchMovieData();
         fmd.execute(url);
-        Toast.makeText(getContext(), "UpdateMoviesCalled" + url, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "UpdateMoviesCalled" + url, Toast.LENGTH_SHORT).show();
+        Log.d("URLTEST", url);
     }
 
     @Override

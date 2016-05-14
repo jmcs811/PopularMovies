@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies;
+package com.jcaseydev.popularmovies.Backend;
 
 import android.provider.BaseColumns;
 

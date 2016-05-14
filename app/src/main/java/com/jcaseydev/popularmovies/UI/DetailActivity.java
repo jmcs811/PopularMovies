@@ -1,9 +1,9 @@
-package com.jcaseydev.popularmovies;
+package com.jcaseydev.popularmovies.UI;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
+
+import com.jcaseydev.popularmovies.R;
 
 public class DetailActivity extends AppCompatActivity {
 

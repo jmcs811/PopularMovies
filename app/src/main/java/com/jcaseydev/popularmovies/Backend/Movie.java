@@ -1,8 +1,7 @@
-package com.jcaseydev.popularmovies;
+package com.jcaseydev.popularmovies.Backend;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 /**
  * Created by justinsMO on 2/27/2016.

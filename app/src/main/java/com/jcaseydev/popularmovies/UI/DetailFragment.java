@@ -1,10 +1,12 @@
-package com.jcaseydev.popularmovies;
+package com.jcaseydev.popularmovies.UI;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +17,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jcaseydev.popularmovies.Backend.Movie;
+import com.jcaseydev.popularmovies.BuildConfig;
+import com.jcaseydev.popularmovies.R;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class DetailFragment extends Fragment{
@@ -56,6 +71,9 @@ public class DetailFragment extends Fragment{
             });
         }
 
+        FetchMovieTrailers fmt = new FetchMovieTrailers();
+        fmt.execute();
+
         return rootView;
     }
 
@@ -95,12 +113,45 @@ public class DetailFragment extends Fragment{
 
     public class FetchMovieTrailers extends AsyncTask<Void, Void, Void> {
 
-        private void getMovieUrl(){
+        private void getMovieUrl(String json) throws JSONException {
+
+            final String JSON_ARRAY = "results";
+            final String TRAILER_KEY = "key";
+
+            JSONObject jsonObject = new JSONObject(json);
+
+            JSONArray jsonArray = jsonObject.getJSONArray(JSON_ARRAY);
+
+            JSONObject keyObject = jsonArray.getJSONObject(0);
+
+            String key = keyObject.getString(TRAILER_KEY);
+
 
         }
 
         @Override
         protected Void doInBackground(Void... voids) {
+            final String QUERY_API = "api_key";
+            final String QUERY_URL = "http://api.themoviedb.org/3/movie/";
+
+            //Build URL to get data from
+            Uri builtUri = Uri.parse(QUERY_URL).buildUpon()
+                    .appendPath(movie.getMovieId() + "/videos")
+                    .appendQueryParameter(QUERY_API, BuildConfig.TMDB_API_KEY)
+                    .build();
+
+
+
+            //Using OkHttp to make network request
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(builtUri.toString())
+                    .build();
+
+            Log.d("URLTEST", builtUri.toString());
+
+            //creating a response object
+            Response response = null;
             return null;
         }
     }
