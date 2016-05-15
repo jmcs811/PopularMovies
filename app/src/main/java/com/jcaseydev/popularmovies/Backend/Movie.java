@@ -45,7 +45,7 @@ public class Movie implements Parcelable{
         return movieVoteAverage;
     }
 
-    public double getMovieId(){
+    public int getMovieId(){
         return movieId;
     }
 

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jcaseydev.popularmovies.Backend.Movie;
 import com.jcaseydev.popularmovies.BuildConfig;
@@ -37,6 +38,7 @@ public class DetailFragment extends Fragment{
 
     public DetailFragment(){}
     Movie movie;
+    private String movieKey;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,9 +72,6 @@ public class DetailFragment extends Fragment{
                 }
             });
         }
-
-        FetchMovieTrailers fmt = new FetchMovieTrailers();
-        fmt.execute();
 
         return rootView;
     }
@@ -111,9 +110,9 @@ public class DetailFragment extends Fragment{
         return super.onOptionsItemSelected(item);
     }
 
-    public class FetchMovieTrailers extends AsyncTask<Void, Void, Void> {
+    public class FetchMovieTrailers extends AsyncTask<Void, Void, String> {
 
-        private void getMovieUrl(String json) throws JSONException {
+        private String getMovieUrl(String json) throws JSONException {
 
             final String JSON_ARRAY = "results";
             final String TRAILER_KEY = "key";
@@ -124,19 +123,16 @@ public class DetailFragment extends Fragment{
 
             JSONObject keyObject = jsonArray.getJSONObject(0);
 
-            String key = keyObject.getString(TRAILER_KEY);
-
-
+            return movieKey = keyObject.getString(TRAILER_KEY);
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground(Void... voids) {
             final String QUERY_API = "api_key";
-            final String QUERY_URL = "http://api.themoviedb.org/3/movie/";
+            final String QUERY_URL = "http://api.themoviedb.org/3/movie/" + movie.getMovieId() + "/videos";
 
             //Build URL to get data from
             Uri builtUri = Uri.parse(QUERY_URL).buildUpon()
-                    .appendPath(movie.getMovieId() + "/videos")
                     .appendQueryParameter(QUERY_API, BuildConfig.TMDB_API_KEY)
                     .build();
 
@@ -152,6 +148,20 @@ public class DetailFragment extends Fragment{
 
             //creating a response object
             Response response = null;
+
+            try {
+                response = client.newCall(request).execute();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String jsonData = response.body().toString();
+
+            try{
+                 getMovieUrl(jsonData);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return null;
         }
     }
