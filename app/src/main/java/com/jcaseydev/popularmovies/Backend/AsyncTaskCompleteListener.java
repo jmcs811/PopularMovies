@@ -2,6 +2,7 @@ package com.jcaseydev.popularmovies.Backend;
 
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.jcaseydev.popularmovies.BuildConfig;
 

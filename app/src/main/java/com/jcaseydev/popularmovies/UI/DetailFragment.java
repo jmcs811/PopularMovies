@@ -38,7 +38,7 @@ public class DetailFragment extends Fragment{
 
     public DetailFragment(){}
     Movie movie;
-    private String movieKey;
+    private String trailerUrl;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,11 +64,16 @@ public class DetailFragment extends Fragment{
             //update view with all of the details
             updateView(rootView);
 
-            Button trailerButton = (Button) rootView.findViewById(R.id.trailer_button);
+            FetchMovieTrailers fmt = new FetchMovieTrailers();
+            fmt.execute();
+
+            final Button trailerButton = (Button) rootView.findViewById(R.id.trailer_button);
             trailerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Uri video = Uri.parse(trailerUrl);
+                    Intent trailerIntent = new Intent(Intent.ACTION_VIEW, video);
+                    startActivity(trailerIntent);
                 }
             });
         }
@@ -110,20 +115,24 @@ public class DetailFragment extends Fragment{
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    //Start of the async task to get movietraler
     public class FetchMovieTrailers extends AsyncTask<Void, Void, String> {
 
         private String getMovieUrl(String json) throws JSONException {
 
             final String JSON_ARRAY = "results";
             final String TRAILER_KEY = "key";
+            String movieKey;
 
             JSONObject jsonObject = new JSONObject(json);
 
             JSONArray jsonArray = jsonObject.getJSONArray(JSON_ARRAY);
 
             JSONObject keyObject = jsonArray.getJSONObject(0);
-
-            return movieKey = keyObject.getString(TRAILER_KEY);
+            movieKey = keyObject.getString(TRAILER_KEY);
+            return movieKey;
         }
 
         @Override
@@ -136,33 +145,34 @@ public class DetailFragment extends Fragment{
                     .appendQueryParameter(QUERY_API, BuildConfig.TMDB_API_KEY)
                     .build();
 
-
-
-            //Using OkHttp to make network request
             OkHttpClient client = new OkHttpClient();
+
             Request request = new Request.Builder()
-                    .url(builtUri.toString())
-                    .build();
+                    .url(builtUri.toString()).build();
 
-            Log.d("URLTEST", builtUri.toString());
-
-            //creating a response object
             Response response = null;
-
             try {
                 response = client.newCall(request).execute();
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            String jsonData = response.body().toString();
-
-            try{
-                 getMovieUrl(jsonData);
-            } catch (JSONException e) {
+            try {
+                String jsonData = response.body().string();
+                return getMovieUrl(jsonData);
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             }
+
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if(s != null){
+                trailerUrl = "https://www.youtube.com/watch?v=" + s;
+            }
         }
     }
 }
