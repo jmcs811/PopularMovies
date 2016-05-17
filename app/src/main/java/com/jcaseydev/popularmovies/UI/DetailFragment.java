@@ -67,6 +67,8 @@ public class DetailFragment extends Fragment{
             FetchMovieTrailers fmt = new FetchMovieTrailers();
             fmt.execute();
 
+
+
             final Button trailerButton = (Button) rootView.findViewById(R.id.trailer_button);
             trailerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
