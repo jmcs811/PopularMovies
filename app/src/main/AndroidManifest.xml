@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".uifiles.MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".uifiles.DetailActivity"
+            android:name=".ui.DetailActivity"
             android:label="@string/movie_details_title"/>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/settings_title"/>
-        <activity android:name=".uifiles.ReviewsActivity"
+        <activity android:name=".ui.ReviewsActivity"
             android:label="@string/reviews_title" />
     </application>
 

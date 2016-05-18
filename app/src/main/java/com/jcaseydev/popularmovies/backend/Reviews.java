@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.model;
+package com.jcaseydev.popularmovies.backend;
 
 /**
  * Created by justi on 5/17/2016.

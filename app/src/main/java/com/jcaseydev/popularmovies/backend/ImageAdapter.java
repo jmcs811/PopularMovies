@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.model;
+package com.jcaseydev.popularmovies.backend;
 
 import android.content.Context;
 import android.view.View;

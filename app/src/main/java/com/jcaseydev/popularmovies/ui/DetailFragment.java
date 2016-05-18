@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.uifiles;
+package com.jcaseydev.popularmovies.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jcaseydev.popularmovies.model.Movie;
+import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.BuildConfig;
 import com.jcaseydev.popularmovies.R;
 import com.squareup.picasso.Picasso;

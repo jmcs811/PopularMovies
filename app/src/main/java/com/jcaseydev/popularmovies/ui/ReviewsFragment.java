@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.uifiles;
+package com.jcaseydev.popularmovies.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.jcaseydev.popularmovies.BuildConfig;
 import com.jcaseydev.popularmovies.R;
-import com.jcaseydev.popularmovies.model.Reviews;
+import com.jcaseydev.popularmovies.backend.Reviews;
 
 import org.json.JSONArray;
 import org.json.JSONException;
