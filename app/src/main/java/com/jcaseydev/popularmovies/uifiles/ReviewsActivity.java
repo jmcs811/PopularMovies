@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.ui;
+package com.jcaseydev.popularmovies.uifiles;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

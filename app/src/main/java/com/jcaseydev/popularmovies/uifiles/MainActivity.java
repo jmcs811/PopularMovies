@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.ui;
+package com.jcaseydev.popularmovies.uifiles;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

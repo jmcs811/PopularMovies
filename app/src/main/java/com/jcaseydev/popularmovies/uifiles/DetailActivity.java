@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.ui;
+package com.jcaseydev.popularmovies.uifiles;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
