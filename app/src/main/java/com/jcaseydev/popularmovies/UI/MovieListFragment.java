@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.UI;
+package com.jcaseydev.popularmovies.ui;
 
 
 import android.content.Intent;
@@ -15,11 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
-import com.jcaseydev.popularmovies.Backend.AsyncTaskCompleteListener;
-import com.jcaseydev.popularmovies.Backend.ImageAdapter;
-import com.jcaseydev.popularmovies.Backend.Movie;
+import com.jcaseydev.popularmovies.backend.AsyncTaskCompleteListener;
+import com.jcaseydev.popularmovies.backend.ImageAdapter;
+import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.R;
 import com.jcaseydev.popularmovies.SettingsActivity;
 

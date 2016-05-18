@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.UI;
+package com.jcaseydev.popularmovies.ui;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,9 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.jcaseydev.popularmovies.Backend.Movie;
+import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.BuildConfig;
 import com.jcaseydev.popularmovies.R;
 import com.squareup.picasso.Picasso;
@@ -39,6 +37,7 @@ public class DetailFragment extends Fragment{
     public DetailFragment(){}
     Movie movie;
     private String trailerUrl;
+    private final static String MOVIE_ID = "movie_id";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +78,16 @@ public class DetailFragment extends Fragment{
                 }
             });
         }
+
+        Button reviewsButton = (Button) rootView.findViewById(R.id.reviews_button);
+        reviewsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ReviewsActivity.class)
+                        .putExtra(MOVIE_ID, movie.getMovieId());
+                startActivity(intent);
+            }
+        });
 
         return rootView;
     }

@@ -40,6 +40,12 @@
         android:layout_height="wrap_content" android:text="@string/trailer_botton"
         android:id="@+id/trailer_button"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/reviews_button"
+        android:text="TEST"/>
+
 
 </LinearLayout>
 </ScrollView>
