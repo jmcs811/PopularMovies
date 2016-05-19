@@ -74,10 +74,13 @@ public class ReviewsFragment extends Fragment{
 
             public TextView authorTextView;
             public TextView contentTextView;
+
             public ViewHolder(View itemView) {
                 super(itemView);
             }
         }
+
+
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
