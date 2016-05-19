@@ -69,21 +69,11 @@ public class ReviewsFragment extends Fragment{
     }
 
     public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-        public class ViewHolder extends RecyclerView.ViewHolder{
-
-            public TextView authorTextView;
-            public TextView contentTextView;
-
-            public ViewHolder(View itemView) {
-                super(itemView);
-            }
-        }
-
-
-
+        
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+
             return null;
         }
 
@@ -95,6 +85,20 @@ public class ReviewsFragment extends Fragment{
         @Override
         public int getItemCount() {
             return 0;
+        }
+
+
+
+        public class ViewHolder extends RecyclerView.ViewHolder{
+
+            public TextView authorTextView;
+            public TextView contentTextView;
+            public ViewHolder(View itemView) {
+                super(itemView);
+
+                authorTextView = (TextView) itemView;
+                contentTextView = (TextView) itemView;
+            }
         }
     }
 
