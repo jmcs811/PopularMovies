@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.Backend;
+package com.jcaseydev.popularmovies.backend;
 
 import android.os.Parcel;
 import android.os.Parcelable;

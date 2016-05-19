@@ -1,4 +1,4 @@
-package com.jcaseydev.popularmovies.Backend;
+package com.jcaseydev.popularmovies.backend;
 
 import android.net.Uri;
 import android.os.AsyncTask;
