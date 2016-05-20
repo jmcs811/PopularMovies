@@ -83,7 +83,7 @@ public class ReviewsFragment extends Fragment{
                 String author = reviewObject.getString(REVIEW_AUTHOR);
                 String content = reviewObject.getString(REVIEW_CONTENT);
 
-                Log.d("AUTHOR and CONTENT", author + " said " + content);
+               // Log.d("AUTHOR and CONTENT", author + " said " + content);
                 reviews.add(new Reviews(author, content));
             }
 
@@ -130,6 +130,9 @@ public class ReviewsFragment extends Fragment{
 
             if(reviews != null){
                 movieReviews.addAll(reviews);
+                for(int i = 0; i < movieReviews.size(); i++){
+                    Log.d("AUTHOR and CONTENT", movieReviews.get(i).getAuthor() + movieReviews.get(i).getContent());
+                }
             }
         }
     }
