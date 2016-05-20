@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jcaseydev.popularmovies.BuildConfig;
 import com.jcaseydev.popularmovies.R;
@@ -20,7 +21,6 @@ import com.jcaseydev.popularmovies.backend.Reviews;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,15 +47,10 @@ public class ReviewsFragment extends Fragment{
         //get intent
         Intent intent = getActivity().getIntent();
 
-        RecyclerView reviewsRecyclerView = (RecyclerView)rootView.findViewById(R.id.reviews_recycler_view);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        reviewsRecyclerView.setLayoutManager(mLayoutManager);
-
-
         //key for the intent extra
         String MOVIE_ID = "movie_id";
         if(intent != null && intent.hasExtra(MOVIE_ID)){
-           movieId = intent.getIntExtra(MOVIE_ID, 1);
+           movieId = intent.getIntExtra(MOVIE_ID, 49026);
         }
 
         return rootView;
@@ -66,40 +61,6 @@ public class ReviewsFragment extends Fragment{
         super.onStart();
         FetchMovieReviews fmr = new FetchMovieReviews();
         fmr.execute();
-    }
-
-    public class ReviewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
-
-            return null;
-        }
-
-        @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return 0;
-        }
-
-
-
-        public class ViewHolder extends RecyclerView.ViewHolder{
-
-            public TextView authorTextView;
-            public TextView contentTextView;
-            public ViewHolder(View itemView) {
-                super(itemView);
-
-                authorTextView = (TextView) itemView;
-                contentTextView = (TextView) itemView;
-            }
-        }
     }
 
     public class FetchMovieReviews extends AsyncTask<Void, Void, List<Reviews>> {
