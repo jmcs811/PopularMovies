@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.jcaseydev.popularmovies.backend.AsyncTaskCompleteListener;
+import com.jcaseydev.popularmovies.backend.DatabaseHandler;
 import com.jcaseydev.popularmovies.backend.ImageAdapter;
 import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.R;
@@ -36,6 +37,7 @@ public class MovieListFragment extends Fragment {
     private ImageAdapter imageAdapter;
     private String BASE_URL;
     private static final String KEY_INDEX = "index";
+    private DatabaseHandler dbHandler;
 
     public MovieListFragment() {
     }
@@ -144,6 +146,15 @@ public class MovieListFragment extends Fragment {
         if (id == R.id.settings_action) {
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
+        }else if (id == R.id.favorite_action){
+            dbHandler = new DatabaseHandler(getContext());
+           String test = dbHandler.getMovie(1).getMovieTitle();
+
+            if(test != null){
+                Log.d("DBTEST", test + " is in the DB");
+            }else{
+                Log.d("DBTEST", "sorry no DB entry");
+            }
         }
         return super.onOptionsItemSelected(item);
 

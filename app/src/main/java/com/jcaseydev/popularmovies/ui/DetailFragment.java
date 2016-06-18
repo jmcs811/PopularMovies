@@ -15,7 +15,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jcaseydev.popularmovies.backend.DatabaseHandler;
 import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.BuildConfig;
 import com.jcaseydev.popularmovies.R;
@@ -38,6 +40,8 @@ public class DetailFragment extends Fragment{
     Movie movie;
     private String trailerUrl;
     private final static String MOVIE_ID = "movie_id";
+    private DatabaseHandler favoritesDb;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -120,7 +124,9 @@ public class DetailFragment extends Fragment{
         int id = item.getItemId();
 
                 if (id == R.id.add_to_fav_action){
-                    //TODO:add to favorites
+                    favoritesDb = new DatabaseHandler(getContext());
+                    favoritesDb.addMovie(movie);
+                    Toast.makeText(getContext(), movie.getMovieTitle() + " has been added to favorites", Toast.LENGTH_SHORT).show();
                 }
 
         return super.onOptionsItemSelected(item);

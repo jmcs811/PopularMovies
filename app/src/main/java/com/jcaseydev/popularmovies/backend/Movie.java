@@ -24,6 +24,10 @@ public class Movie implements Parcelable{
         this.movieId = movieId;
     }
 
+    public Movie(String title){
+        this.movieTitle = title;
+    }
+
     //getters for all of the required information
     public String getMovieTitle() {
         return movieTitle;
