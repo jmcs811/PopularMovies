@@ -146,7 +146,7 @@ public class MovieListFragment extends Fragment {
         if (id == R.id.settings_action) {
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
-        }else if (id == R.id.favorite_action){
+        } else if (id == R.id.favorite_action){
             dbHandler = new DatabaseHandler(getContext());
            String test = dbHandler.getMovie(1).getMovieTitle();
 

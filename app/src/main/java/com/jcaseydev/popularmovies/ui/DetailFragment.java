@@ -76,9 +76,13 @@ public class DetailFragment extends Fragment{
             trailerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Uri video = Uri.parse(trailerUrl);
-                    Intent trailerIntent = new Intent(Intent.ACTION_VIEW, video);
-                    startActivity(trailerIntent);
+                    try {
+                        Uri video = Uri.parse(trailerUrl);
+                        Intent trailerIntent = new Intent(Intent.ACTION_VIEW, video);
+                        startActivity(trailerIntent);
+                    } catch (NullPointerException e){
+                        Toast.makeText(getContext(), "Sorry no trailer yet", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -90,6 +94,7 @@ public class DetailFragment extends Fragment{
                 Intent intent = new Intent(getContext(), ReviewsActivity.class)
                         .putExtra(MOVIE_ID, movie.getMovieId());
                 startActivity(intent);
+                Toast.makeText(getContext(), "This feature is still a work in progress", Toast.LENGTH_SHORT).show();
             }
         });
 

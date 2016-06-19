@@ -45,9 +45,7 @@ public class ImageAdapter extends BaseAdapter{
         imageView.setPadding(0, 0, 0, 0);
 
         Picasso mPicasso = Picasso.with(mContext);
-        mPicasso.setIndicatorsEnabled(true);
         mPicasso.load(posterPath.get(position))
-                .placeholder(R.drawable.ic_star_black_24dp)
                 .into(imageView);
         return imageView;
     }
