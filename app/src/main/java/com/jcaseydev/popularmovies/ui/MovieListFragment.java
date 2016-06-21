@@ -97,8 +97,6 @@ public class MovieListFragment extends Fragment {
         //create a new async task and execute
         FetchMovieData fmd = new FetchMovieData();
         fmd.execute(url);
-        //Toast.makeText(getContext(), "UpdateMoviesCalled" + url, Toast.LENGTH_SHORT).show();
-        Log.d("URLTEST", url);
     }
 
     @Override

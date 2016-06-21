@@ -4,7 +4,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 
 import com.jcaseydev.popularmovies.BuildConfig;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +52,7 @@ public class AsyncTaskCompleteListener extends AsyncTask<String, Void, List<Movi
 
             //get the various details about the movie
             String title = movieObject.getString(TITLE);
-            String poster = "http://image.tmdb.org/t/p/w342/" + movieObject.getString(POSTER_PATH);
+            String poster = "http://image.tmdb.org/t/p/w154/" + movieObject.getString(POSTER_PATH);
             String overview = movieObject.getString(OVERVIEW);
             String releasedate = movieObject.getString(RELEASE_DATE);
             Double voteAvg = movieObject.getDouble(VOTE_AVERAGE);
@@ -65,6 +64,8 @@ public class AsyncTaskCompleteListener extends AsyncTask<String, Void, List<Movi
 
         return movies;
     }
+
+
 
     @Override
     protected List<Movie> doInBackground(String... params) {

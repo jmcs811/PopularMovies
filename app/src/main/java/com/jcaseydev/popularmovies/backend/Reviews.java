@@ -19,4 +19,6 @@ public class Reviews {
     public String getContent() {
         return Content;
     }
+
+
 }

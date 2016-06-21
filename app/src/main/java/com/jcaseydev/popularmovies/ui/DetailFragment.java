@@ -44,7 +44,7 @@ public class DetailFragment extends Fragment{
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -94,7 +94,6 @@ public class DetailFragment extends Fragment{
                 Intent intent = new Intent(getContext(), ReviewsActivity.class)
                         .putExtra(MOVIE_ID, movie.getMovieId());
                 startActivity(intent);
-                Toast.makeText(getContext(), "This feature is still a work in progress", Toast.LENGTH_SHORT).show();
             }
         });
 

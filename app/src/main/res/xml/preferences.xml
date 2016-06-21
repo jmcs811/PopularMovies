@@ -7,4 +7,11 @@
         android:summary="@string/action_sort_summary"
         android:defaultValue="true" />
 
+    <CheckBoxPreference
+        android:key="pref_img_size"
+        android:title="Image Size"
+        android:summary="check this to get higher res images"
+        android:defaultValue="false"
+        />
+
 </PreferenceScreen>
