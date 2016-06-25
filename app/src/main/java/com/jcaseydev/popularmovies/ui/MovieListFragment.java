@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.jcaseydev.popularmovies.backend.AsyncTaskCompleteListener;
+import com.jcaseydev.popularmovies.backend.DatabaseHandler;
 import com.jcaseydev.popularmovies.backend.ImageAdapter;
 import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.R;
@@ -36,6 +37,7 @@ public class MovieListFragment extends Fragment {
     private ImageAdapter imageAdapter;
     private String BASE_URL;
     private static final String KEY_INDEX = "index";
+    private DatabaseHandler dbHandler;
 
     public MovieListFragment() {
     }
@@ -95,8 +97,7 @@ public class MovieListFragment extends Fragment {
         //create a new async task and execute
         FetchMovieData fmd = new FetchMovieData();
         fmd.execute(url);
-        //Toast.makeText(getContext(), "UpdateMoviesCalled" + url, Toast.LENGTH_SHORT).show();
-        Log.d("URLTEST", url);
+
     }
 
     @Override
@@ -144,6 +145,9 @@ public class MovieListFragment extends Fragment {
         if (id == R.id.settings_action) {
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
+        } else if (id == R.id.favorite_action){
+            Intent favs = new Intent(getContext(), FavoritesActivity.class);
+            startActivity(favs);
         }
         return super.onOptionsItemSelected(item);
 

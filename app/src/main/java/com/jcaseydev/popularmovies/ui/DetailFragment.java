@@ -1,9 +1,13 @@
 package com.jcaseydev.popularmovies.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,7 +19,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jcaseydev.popularmovies.backend.DatabaseHandler;
 import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.BuildConfig;
 import com.jcaseydev.popularmovies.R;
@@ -26,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -38,9 +46,11 @@ public class DetailFragment extends Fragment{
     Movie movie;
     private String trailerUrl;
     private final static String MOVIE_ID = "movie_id";
+    private DatabaseHandler favoritesDb;
+
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -72,9 +82,13 @@ public class DetailFragment extends Fragment{
             trailerButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Uri video = Uri.parse(trailerUrl);
-                    Intent trailerIntent = new Intent(Intent.ACTION_VIEW, video);
-                    startActivity(trailerIntent);
+                    try {
+                        Uri video = Uri.parse(trailerUrl);
+                        Intent trailerIntent = new Intent(Intent.ACTION_VIEW, video);
+                        startActivity(trailerIntent);
+                    } catch (NullPointerException e){
+                        Toast.makeText(getContext(), "Sorry no trailer yet", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -86,6 +100,7 @@ public class DetailFragment extends Fragment{
                 Intent intent = new Intent(getContext(), ReviewsActivity.class)
                         .putExtra(MOVIE_ID, movie.getMovieId());
                 startActivity(intent);
+
             }
         });
 
@@ -120,7 +135,9 @@ public class DetailFragment extends Fragment{
         int id = item.getItemId();
 
                 if (id == R.id.add_to_fav_action){
-                    //TODO:add to favorites
+                    favoritesDb = new DatabaseHandler(getContext());
+                    favoritesDb.addMovie(movie);
+                    Toast.makeText(getContext(), movie.getMovieTitle() + " has been added to favorites", Toast.LENGTH_SHORT).show();
                 }
 
         return super.onOptionsItemSelected(item);

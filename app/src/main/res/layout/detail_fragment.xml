@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reviews_button"
-        android:text="TEST"/>
+        android:text="@string/movie_reviews"/>
 
 
 </LinearLayout>

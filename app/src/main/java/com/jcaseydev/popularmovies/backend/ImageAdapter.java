@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.jcaseydev.popularmovies.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,8 +43,9 @@ public class ImageAdapter extends BaseAdapter{
         ImageView imageView = new ImageView(mContext);
         imageView.setAdjustViewBounds(true);
         imageView.setPadding(0, 0, 0, 0);
-        Picasso.with(mContext)
-                .load(posterPath.get(position))
+
+        Picasso mPicasso = Picasso.with(mContext);
+        mPicasso.load(posterPath.get(position))
                 .into(imageView);
         return imageView;
     }
