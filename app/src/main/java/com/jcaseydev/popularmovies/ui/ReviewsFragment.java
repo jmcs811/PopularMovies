@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jcaseydev.popularmovies.BuildConfig;
 import com.jcaseydev.popularmovies.R;
@@ -185,10 +186,6 @@ public class ReviewsFragment extends Fragment{
 
             if(reviews != null){
                 movieReviews.addAll(reviews);
-                for(int i = 0; i < movieReviews.size(); i++){
-                    Log.d("AUTHOR and CONTENT", movieReviews.get(i).getAuthor() + movieReviews.get(i).getContent());
-                }
-
                 mAdapter.notifyDataSetChanged();
             }
         }

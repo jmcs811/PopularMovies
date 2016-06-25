@@ -1,9 +1,13 @@
 package com.jcaseydev.popularmovies.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,6 +32,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -94,6 +100,7 @@ public class DetailFragment extends Fragment{
                 Intent intent = new Intent(getContext(), ReviewsActivity.class)
                         .putExtra(MOVIE_ID, movie.getMovieId());
                 startActivity(intent);
+
             }
         });
 

@@ -25,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        final String CREATE_MOVIES_TABLE = "CREATE TABLE " + MovieEntry.TABLE_NAME + " (" +
+        final String CREATE_MOVIES_TABLE = "CREATE TABLE IF NOT EXISTS" + MovieEntry.TABLE_NAME + " (" +
                 MovieEntry._ID + " INTEGER PRIMARY KEY," +
                 MovieEntry.COLUMN_MOVIE_TITLE + " TEXT," +
                 MovieEntry.COLUMN_MOVIE_POSTER + " TEXT," +
@@ -47,6 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         ContentValues values= new ContentValues();
         values.put(MovieEntry.COLUMN_MOVIE_TITLE, movie.getMovieTitle());
+        values.put(MovieEntry.COULMN_MOVIE_OVERVIEW, movie.getMovieOverview());
 
         db.insert(MovieEntry.TABLE_NAME, null, values);
         db.close();
@@ -55,14 +56,14 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     public Movie getMovie(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(MovieEntry.TABLE_NAME,
-                new String[] { MovieEntry._ID, MovieEntry.COLUMN_MOVIE_TITLE},
+        Cursor cursor = db.query(
+                MovieEntry.TABLE_NAME,
+                new String[] { MovieEntry._ID, MovieEntry.COLUMN_MOVIE_TITLE, MovieEntry.COULMN_MOVIE_OVERVIEW},
                 MovieEntry._ID + "=?",
                 new String[] {String.valueOf(id)} , null , null, null);
 
-        if (cursor != null)
-            cursor.moveToFirst();
-
+        if (cursor != null && cursor.moveToFirst())
+            cursor.move(id);
         return new Movie(cursor.getString(id));
     }
 }

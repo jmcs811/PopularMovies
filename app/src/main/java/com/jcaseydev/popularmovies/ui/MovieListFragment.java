@@ -97,6 +97,7 @@ public class MovieListFragment extends Fragment {
         //create a new async task and execute
         FetchMovieData fmd = new FetchMovieData();
         fmd.execute(url);
+
     }
 
     @Override
@@ -145,14 +146,8 @@ public class MovieListFragment extends Fragment {
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
         } else if (id == R.id.favorite_action){
-            dbHandler = new DatabaseHandler(getContext());
-           String test = dbHandler.getMovie(1).getMovieTitle();
-
-            if(test != null){
-                Log.d("DBTEST", test + " is in the DB");
-            }else{
-                Log.d("DBTEST", "sorry no DB entry");
-            }
+            Intent favs = new Intent(getContext(), FavoritesActivity.class);
+            startActivity(favs);
         }
         return super.onOptionsItemSelected(item);
 
