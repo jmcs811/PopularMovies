@@ -25,7 +25,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        final String CREATE_MOVIES_TABLE = "CREATE TABLE IF NOT EXISTS" + MovieEntry.TABLE_NAME + " (" +
+        final String CREATE_MOVIES_TABLE = "CREATE TABLE IF NOT EXISTS " + MovieEntry.TABLE_NAME + " (" +
                 MovieEntry._ID + " INTEGER PRIMARY KEY," +
                 MovieEntry.COLUMN_MOVIE_TITLE + " TEXT," +
                 MovieEntry.COLUMN_MOVIE_POSTER + " TEXT," +
