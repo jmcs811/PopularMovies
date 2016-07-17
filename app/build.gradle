@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '23.0.3'
+    buildToolsVersion '24'
 
     defaultConfig {
         applicationId "com.jcaseydev.popularmovies"
@@ -29,6 +29,8 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.okhttp3:okhttp:3.1.2'
     compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.google.firebase:firebase-core:9.2.1'
 }
+apply plugin: 'com.google.gms.google-services'
 
 
