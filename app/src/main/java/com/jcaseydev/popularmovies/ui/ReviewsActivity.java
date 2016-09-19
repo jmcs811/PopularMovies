@@ -10,22 +10,11 @@ import com.jcaseydev.popularmovies.R;
 /**
  * Created by justi on 5/17/2016.
  */
-public class ReviewsActivity extends AppCompatActivity{
+public class ReviewsActivity extends SingleFragmentActivity{
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_review);
-
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.review_activity);
-        if (fragment == null){
-            fragment = new ReviewsFragment();
-            fm.beginTransaction()
-                    .add(R.id.review_activity, fragment)
-                    .commit();
-        }
+    protected Fragment createFragment() {
+        return new ReviewsFragment();
     }
 }

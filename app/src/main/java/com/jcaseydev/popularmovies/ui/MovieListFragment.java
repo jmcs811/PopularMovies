@@ -47,6 +47,7 @@ public class MovieListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
+
         if (savedInstanceState != null) {
             BASE_URL = savedInstanceState.getString(KEY_INDEX);
         }
