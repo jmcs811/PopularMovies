@@ -37,14 +37,17 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:text="@string/trailer_botton"
-        android:id="@+id/trailer_button"/>
+        android:layout_height="wrap_content"
+        android:text="@string/trailer_botton"
+        android:id="@+id/trailer_button"
+        android:elevation="12dp" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reviews_button"
-        android:text="@string/movie_reviews"/>
+        android:text="@string/movie_reviews"
+        android:elevation="12dp" />
 
 
 </LinearLayout>

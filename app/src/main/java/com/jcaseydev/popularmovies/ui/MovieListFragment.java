@@ -1,6 +1,7 @@
 package com.jcaseydev.popularmovies.ui;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,13 +34,26 @@ public class MovieListFragment extends Fragment {
 
     private ArrayList<Movie> movieArrayList = new ArrayList<>();
     private ArrayList<String> listOfMoviePosters = new ArrayList<>();
-    private String MOVIE_KEY = "movie_info";
     private ImageAdapter imageAdapter;
     private String BASE_URL;
     private static final String KEY_INDEX = "index";
     private DatabaseHandler dbHandler;
+    private Callbacks mCallbacks;
 
     public MovieListFragment() {
+    }
+
+    /**
+     * Required interface for hosting activities
+     */
+    public interface Callbacks {
+        void onMovieSelected(ArrayList movieList, int Position);
+    }
+
+    @Override
+    public void onAttach(Activity activity){
+        super.onAttach(activity);
+        mCallbacks = (Callbacks)activity;
     }
 
     @Override
@@ -66,11 +80,8 @@ public class MovieListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Movie details = movieArrayList.get(position);
-                Intent intent = new Intent(getActivity(), DetailActivity.class)
-                        .putExtra(MOVIE_KEY, details);
-                startActivity(intent);
-
+                //uses onMovieSelected to determine if Tablet layout or phone is needed.
+                mCallbacks.onMovieSelected(movieArrayList, position);
             }
         });
 
@@ -105,6 +116,12 @@ public class MovieListFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(KEY_INDEX, BASE_URL);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallbacks = null;
     }
 
     public class FetchMovieData extends AsyncTaskCompleteListener {

@@ -1,14 +1,9 @@
 package com.jcaseydev.popularmovies.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -32,27 +27,36 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class DetailFragment extends Fragment{
+public class DetailFragment extends Fragment {
 
-    public DetailFragment(){}
-    Movie movie;
+    public DetailFragment() {
+    }
+
+    private Movie movie;
     private String trailerUrl;
     private final static String MOVIE_ID = "movie_id";
     private DatabaseHandler favoritesDb;
+    private ArrayList movieList;
+    int position;
+    private FetchMovieTrailers fmt;
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        Bundle detailInfo = this.getArguments();
+        if (detailInfo != null) {
+            movieList = detailInfo.getParcelableArrayList("detail_info");
+            position = detailInfo.getInt("POSITION");
+        }
     }
 
     @Override
@@ -66,17 +70,15 @@ public class DetailFragment extends Fragment{
         String MOVIE_INFO = "movie_info";
 
         //test if intent is not null and if it has the correct extra
-        if(intent != null && intent.hasExtra(MOVIE_INFO)){
+        if (intent != null && intent.hasExtra(MOVIE_INFO)) {
             //fill movie with the details of the clicked item
             movie = intent.getParcelableExtra(MOVIE_INFO);
 
             //update view with all of the details
             updateView(rootView);
 
-            FetchMovieTrailers fmt = new FetchMovieTrailers();
+            fmt = new FetchMovieTrailers();
             fmt.execute();
-
-
 
             final Button trailerButton = (Button) rootView.findViewById(R.id.trailer_button);
             trailerButton.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +88,26 @@ public class DetailFragment extends Fragment{
                         Uri video = Uri.parse(trailerUrl);
                         Intent trailerIntent = new Intent(Intent.ACTION_VIEW, video);
                         startActivity(trailerIntent);
-                    } catch (NullPointerException e){
+                    } catch (NullPointerException e) {
+                        Toast.makeText(getContext(), "Sorry no trailer yet", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        } else {
+            movie = (Movie) movieList.get(position);
+            updateView(rootView);
+            fmt = new FetchMovieTrailers();
+            fmt.execute();
+
+            final Button trailerButton = (Button) rootView.findViewById(R.id.trailer_button);
+            trailerButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+                        Uri video = Uri.parse(trailerUrl);
+                        Intent trailerIntent = new Intent(Intent.ACTION_VIEW, video);
+                        startActivity(trailerIntent);
+                    } catch (NullPointerException e) {
                         Toast.makeText(getContext(), "Sorry no trailer yet", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -107,13 +128,13 @@ public class DetailFragment extends Fragment{
         return rootView;
     }
 
-    private void updateView(View view){
+    private void updateView(View view) {
         //set up the views
         TextView title = (TextView) view.findViewById(R.id.movieTitle);
-        TextView overview = (TextView)view.findViewById(R.id.movieOverview);
-        TextView releaseDate = (TextView)view.findViewById(R.id.movieReleaseDate);
-        ImageView moviePoster = (ImageView)view.findViewById(R.id.moviePoster);
-        TextView movieVoteAvg = (TextView)view.findViewById(R.id.movieVote);
+        TextView overview = (TextView) view.findViewById(R.id.movieOverview);
+        TextView releaseDate = (TextView) view.findViewById(R.id.movieReleaseDate);
+        ImageView moviePoster = (ImageView) view.findViewById(R.id.moviePoster);
+        TextView movieVoteAvg = (TextView) view.findViewById(R.id.movieVote);
 
 
         //set the text on the views
@@ -134,15 +155,14 @@ public class DetailFragment extends Fragment{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-                if (id == R.id.add_to_fav_action){
-                    favoritesDb = new DatabaseHandler(getContext());
-                    favoritesDb.addMovie(movie);
-                    Toast.makeText(getContext(), movie.getMovieTitle() + " has been added to favorites", Toast.LENGTH_SHORT).show();
-                }
+        if (id == R.id.add_to_fav_action) {
+            favoritesDb = new DatabaseHandler(getContext());
+            favoritesDb.addMovie(movie);
+            Toast.makeText(getContext(), movie.getMovieTitle() + " has been added to favorites", Toast.LENGTH_SHORT).show();
+        }
 
         return super.onOptionsItemSelected(item);
     }
-
 
 
     //Start of the async task to get movietraler
@@ -198,7 +218,7 @@ public class DetailFragment extends Fragment{
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            if(s != null){
+            if (s != null) {
                 trailerUrl = "https://www.youtube.com/watch?v=" + s;
             }
         }
