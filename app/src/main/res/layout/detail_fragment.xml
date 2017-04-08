@@ -9,11 +9,19 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:id="@+id/moviePoster"
         android:contentDescription="@string/movie_poster"
-        android:clickable="false"/>
+        android:clickable="false"
+        android:layout_gravity="center_vertical" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/movieTitle"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,11 +36,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/movieTitle" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/movieOverview" />
 
     <Button
@@ -40,14 +43,14 @@
         android:layout_height="wrap_content"
         android:text="@string/trailer_botton"
         android:id="@+id/trailer_button"
-        android:elevation="12dp" />
+        android:theme="@style/MyButton"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/reviews_button"
         android:text="@string/movie_reviews"
-        android:elevation="12dp" />
+        android:theme="@style/MyButton"/>
 
 
 </LinearLayout>

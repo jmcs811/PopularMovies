@@ -139,10 +139,10 @@ public class DetailFragment extends Fragment {
 
         //set the text on the views
         title.setText(movie.getMovieTitle());
-        overview.setText(movie.getMovieOverview());
-        releaseDate.setText(movie.getMovieReleaseDate());
+        overview.setText("Synopsis: " + movie.getMovieOverview());
+        releaseDate.setText("Release Date: " + movie.getMovieReleaseDate());
         Picasso.with(getActivity()).load(movie.getMoviePoster()).into(moviePoster);
-        movieVoteAvg.setText(Double.toString(movie.getMovieVoteAverage()));
+        movieVoteAvg.setText("Movie Rating: " + Double.toString(movie.getMovieVoteAverage()));
     }
 
     @Override
