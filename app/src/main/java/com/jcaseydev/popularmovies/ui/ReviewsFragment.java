@@ -77,20 +77,20 @@ public class ReviewsFragment extends Fragment{
 
     }
 
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
+    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         private List<Reviews> mDataset;
 
-        public class ViewHolder extends RecyclerView.ViewHolder{
-            public TextView mAuthorTextView, mReviewTextView;
+        class ViewHolder extends RecyclerView.ViewHolder{
+            TextView mAuthorTextView, mReviewTextView;
 
-            public ViewHolder(View itemView) {
+            ViewHolder(View itemView) {
                 super(itemView);
                 mAuthorTextView = (TextView) itemView.findViewById(R.id.author_text_view);
                 mReviewTextView = (TextView) itemView.findViewById(R.id.review_text_view);
             }
         }
 
-        public MyAdapter(List<Reviews> reviews){
+        MyAdapter(List<Reviews> reviews){
             mDataset = reviews;
         }
 

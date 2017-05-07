@@ -14,9 +14,9 @@ import com.jcaseydev.popularmovies.backend.Contract.MovieEntry;
  */
 public class DatabaseHandler extends SQLiteOpenHelper{
 
-    public static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 1;
 
-    static final String DATABASE_NAME = "movies.db";
+    private static final String DATABASE_NAME = "movies.db";
 
     public DatabaseHandler(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,12 +25,10 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        final String CREATE_MOVIES_TABLE = "CREATE TABLE IF NOT EXISTS " + MovieEntry.TABLE_NAME + " (" +
-                MovieEntry._ID + " INTEGER PRIMARY KEY," +
-                MovieEntry.COLUMN_MOVIE_TITLE + " TEXT," +
-                MovieEntry.COLUMN_MOVIE_POSTER + " TEXT," +
-                MovieEntry.COULMN_MOVIE_OVERVIEW + " TEXT," +
-                MovieEntry.COLUMN_MOVIE_RELEASE_DATE + " TEXT" +
+        final String CREATE_MOVIES_TABLE = "CREATE TABLE " + MovieEntry.TABLE_NAME + " (" +
+                MovieEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                MovieEntry.COLUMN_MOVIE_TITLE + " TEXT, " +
+                MovieEntry.COLUMN_MOVIE_ID + " TEXT " +
                 ")";
         db.execSQL(CREATE_MOVIES_TABLE);
     }
@@ -42,28 +40,46 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void addMovie(Movie movie){
-        SQLiteDatabase db = this.getWritableDatabase();
+   public boolean addMovie(String item){
+       SQLiteDatabase db = this.getWritableDatabase();
+       ContentValues contentValues = new ContentValues();
+       contentValues.put(MovieEntry.COLUMN_MOVIE_TITLE, item);
 
-        ContentValues values= new ContentValues();
-        values.put(MovieEntry.COLUMN_MOVIE_TITLE, movie.getMovieTitle());
-        values.put(MovieEntry.COULMN_MOVIE_OVERVIEW, movie.getMovieOverview());
+       Log.d("TAG", "addData: Adding " + item + " to " + MovieEntry.TABLE_NAME);
 
-        db.insert(MovieEntry.TABLE_NAME, null, values);
-        db.close();
-    }
+       long result = db.insert(MovieEntry.TABLE_NAME, null, contentValues);
+       if (result == -1){
+           return false;
+       } else {
+           return true;
+       }
+   }
 
-    public Movie getMovie(int id){
+    /**public Movie getMovie(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(
                 MovieEntry.TABLE_NAME,
-                new String[] { MovieEntry._ID, MovieEntry.COLUMN_MOVIE_TITLE, MovieEntry.COULMN_MOVIE_OVERVIEW},
+                new String[] { MovieEntry._ID, MovieEntry.COLUMN_MOVIE_TITLE, MovieEntry.COLUMN_MOVIE_ID},
                 MovieEntry._ID + "=?",
                 new String[] {String.valueOf(id)} , null , null, null);
 
         if (cursor != null && cursor.moveToFirst())
             cursor.move(id);
         return new Movie(cursor.getString(id));
+    }**/
+
+    public Cursor getData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + MovieEntry.TABLE_NAME;
+        return db.rawQuery(query, null);
+    }
+
+    public int getMovieCount(){
+        String countQuery = "SELECT * FROM " + MovieEntry.TABLE_NAME;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        return cursor.getCount();
     }
 }

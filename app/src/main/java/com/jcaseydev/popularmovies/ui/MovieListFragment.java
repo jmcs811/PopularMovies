@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.jcaseydev.popularmovies.backend.AsyncTaskCompleteListener;
 import com.jcaseydev.popularmovies.backend.DatabaseHandler;
@@ -24,6 +25,8 @@ import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.R;
 import com.jcaseydev.popularmovies.SettingsActivity;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +63,6 @@ public class MovieListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
 
         if (savedInstanceState != null) {
             BASE_URL = savedInstanceState.getString(KEY_INDEX);
@@ -149,6 +151,7 @@ public class MovieListFragment extends Fragment {
             }
         }
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

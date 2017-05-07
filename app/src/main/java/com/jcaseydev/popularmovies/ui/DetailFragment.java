@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jcaseydev.popularmovies.backend.Contract;
 import com.jcaseydev.popularmovies.backend.DatabaseHandler;
 import com.jcaseydev.popularmovies.backend.Movie;
 import com.jcaseydev.popularmovies.BuildConfig;
@@ -52,6 +54,9 @@ public class DetailFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        favoritesDb = new DatabaseHandler(getContext());
+
         Bundle detailInfo = this.getArguments();
         if (detailInfo != null) {
             movieList = detailInfo.getParcelableArrayList("detail_info");
@@ -145,6 +150,16 @@ public class DetailFragment extends Fragment {
         movieVoteAvg.setText("Movie Rating: " + Double.toString(movie.getMovieVoteAverage()));
     }
 
+    public void addData(Movie movie) {
+        boolean insertData = favoritesDb.addMovie(movie.getMovieTitle());
+
+        if (insertData){
+            Toast.makeText(getContext(), "Data Successfully Inserted!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "Something Went Wrong", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -156,16 +171,15 @@ public class DetailFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.add_to_fav_action) {
-            favoritesDb = new DatabaseHandler(getContext());
-            favoritesDb.addMovie(movie);
-            Toast.makeText(getContext(), movie.getMovieTitle() + " has been added to favorites", Toast.LENGTH_SHORT).show();
+            addData(movie);
+
         }
 
         return super.onOptionsItemSelected(item);
     }
 
 
-    //Start of the async task to get movietraler
+    //Start of the async task to get movie trailer
     public class FetchMovieTrailers extends AsyncTask<Void, Void, String> {
 
         private String getMovieUrl(String json) throws JSONException {
